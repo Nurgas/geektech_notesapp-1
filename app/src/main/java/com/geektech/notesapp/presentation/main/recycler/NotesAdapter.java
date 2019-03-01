@@ -40,6 +40,7 @@ public class NotesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
+
         return mNotes.size();
     }
 
@@ -50,7 +51,7 @@ public class NotesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @Nullable
-    NoteEntity getNote(int id) {
+    public NoteEntity getNote(int id) {
         if (mNotes.size() > id && id >= 0) {
             return mNotes.get(id);
         } else {
