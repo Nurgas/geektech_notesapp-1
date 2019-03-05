@@ -4,18 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.geektech.notesapp.App;
 import com.geektech.notesapp.R;
 import com.geektech.notesapp.model.NoteEntity;
 
 public class NoteInfoActivity extends AppCompatActivity {
-    NoteEntity mNoteEntity;
 
-    TextView textTitle, textDesc, textDate;
+    private TextView textTitle, textDesc, textDate;
+    private Button editBtn, deleteBtn;
 
-
-    //region Static
+    private static final String EXTRA_ID = "id";
 
     public static void start(Context context, int id) {
         context.startActivity(intent(context, id));
@@ -23,15 +25,11 @@ public class NoteInfoActivity extends AppCompatActivity {
 
     public static Intent intent(Context context, int id) {
         Intent intent = new Intent(context, NoteInfoActivity.class);
-        intent.putExtra("key", id);
-
-
-        //TODO: Put id into intent extras
+        intent.putExtra(EXTRA_ID, id);
 
         return intent;
     }
 
-    //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +40,47 @@ public class NoteInfoActivity extends AppCompatActivity {
         init();
     }
 
+
     private void init() {
 
-        textTitle = findViewById(R.id.textTitleNote);
-        textDesc = findViewById(R.id.textDescNote);
-        textDate = findViewById(R.id.currentDateNote);
+        textTitle = findViewById(R.id.note_info_title);
+        textDesc = findViewById(R.id.note_info_desc);
+        textDate = findViewById(R.id.note_info_created_at);
+        editBtn = findViewById(R.id.edit_note_btn);
+        deleteBtn = findViewById(R.id.delete_note_btn);
 
-        textTitle.setText(mNoteEntity.getTitle());
-        textDesc.setText(mNoteEntity.getDescription());
-//        textDate.setText(mNoteEntity.getCreatedAt());
-        //TODO: Init all views
-        //TODO: Get passed id from intent and load NoteEntity data into views
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NoteEntity note = new NoteEntity();
+                App.notesStorage.deleteNote(note.getId());
+                finish();
+
+            }
+        });
+
+
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        loadNote();
+
+    }
+
+    private void loadNote() {
+        NoteEntity note = App.notesStorage.getNote(getIntent().getIntExtra("id", -1));
+
+        if(note !=null) {
+            textTitle.setText(note.getTitle());
+            textDesc.setText(note.getDescription());
+            textDate.setText(note.getCreatedAt().toString()); //TODO Data format
+
+        }
+
+
     }
 }

@@ -25,31 +25,18 @@ public class MainActivity extends AppCompatActivity
 
     private NotesAdapter mAdapter;
     private RecyclerView mRecycler;
-    private ArrayList<NoteEntity> mNoteEntitieList;
-    private NoteItemViewHolder.NoteClickListener mListener;
+    private FloatingActionButton mActionButton;
 
-    //region Static
 
     public static void start(Activity activity) {
         activity.startActivity(new Intent(activity, MainActivity.class));
     }
 
-    //endregion
-
-    //region Lifecycle
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
-                startActivity(intent);
-            }
-        });
+        
         init();
     }
 
@@ -59,33 +46,38 @@ public class MainActivity extends AppCompatActivity
         loadNotes();
     }
 
-    //endregion
-
-    //region Init
-
     private void init() {
-        mRecycler.findViewById(R.id.recycler);
-        mRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new NotesAdapter(mNoteEntitieList, mListener);
+
+        mAdapter = new NotesAdapter(new ArrayList<NoteEntity>(), this);
+        mRecycler = findViewById(R.id.recycler);
         mRecycler.setAdapter(mAdapter);
-        //TODO: Initialize recycler, and Adapter
+        mRecycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+
+        mActionButton= findViewById(R.id.fab);
+        mActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+                openAddNoteScreen();
+            }
+        });
     }
-
-    //endregion
-
-    //region Click
 
     @Override
     public void onClick(int position) {
-        mAdapter.getNote(position);
-        NoteInfoActivity.start(this, position);
-        //TODO: Get note from adapter via NotesAdapter.getItem(int position) and open NoteInfoActivity
+        NoteEntity note = mAdapter.getNote(position);
+        if(note !=null) {
+            NoteInfoActivity.start(this, note.getId());
+        }
     }
 
-    //endregion
+    private void openAddNoteScreen() {
+        AddNoteActivity.start(this);
+
+    }
 
     private void loadNotes() {
-        App.notesStorage.getAllNotes();
-        //TODO: Load notes from NotesRepository, get from App instance
+        mAdapter.setNotes(App.notesStorage.getAllNotes());
+
     }
 }

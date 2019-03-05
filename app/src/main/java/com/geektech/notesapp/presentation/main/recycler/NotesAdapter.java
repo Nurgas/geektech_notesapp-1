@@ -44,7 +44,7 @@ public class NotesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return mNotes.size();
     }
 
-    void setNotes(Collection<NoteEntity> notes) {
+   public void setNotes(Collection<NoteEntity> notes) {
         mNotes.clear();
         mNotes.addAll(notes);
         notifyDataSetChanged();

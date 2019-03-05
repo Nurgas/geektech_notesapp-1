@@ -7,33 +7,31 @@ import java.util.HashMap;
 
 public class NotesRepository implements NotesStorage {
 
-    private HashMap<Integer, NoteEntity> mCache = new HashMap<>();
+    private NotesStorage mLocal, mRemote;
 
-    public NotesRepository() {
-        mCache.put(1, new NoteEntity());
-        mCache.put(2, new NoteEntity());
-        mCache.put(3, new NoteEntity());
-        mCache.put(4, new NoteEntity());
-        mCache.put(5, new NoteEntity());
+    public NotesRepository(NotesStorage local) {
+        mLocal = local;
     }
 
     @Override
     public void addNote(NoteEntity noteEntity) {
-        //TODO: Add note to cache
+        mLocal.addNote(noteEntity);
     }
 
     @Override
     public NoteEntity getNote(int id) {
-        return mCache.get(id);
+
+        return mLocal.getNote(id);
     }
 
     @Override
     public Collection<NoteEntity> getAllNotes() {
-        return mCache.values();
+        return mLocal.getAllNotes();
     }
 
     @Override
     public void deleteNote(int id) {
+        mLocal.deleteNote(id);
 
     }
 }

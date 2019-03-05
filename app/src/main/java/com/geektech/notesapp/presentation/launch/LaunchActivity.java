@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.geektech.notesapp.App;
 import com.geektech.notesapp.R;
 import com.geektech.notesapp.presentation.intro.IntroActivity;
 import com.geektech.notesapp.presentation.main.MainActivity;
@@ -20,27 +21,12 @@ public class LaunchActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
 
-        if (isFirstLaunch()) {
+        if (App.sharedStorage.get(PREF_FIRST_LAUNCH, true)) {
             IntroActivity.start(this);
-            firstLaunch();
+            App.sharedStorage.set(PREF_FIRST_LAUNCH, false);
         } else {
             MainActivity.start(this);
         }
         finish();
-    }
-
-    //TODO: Save to shared prefs on first launch
-    private boolean isFirstLaunch() {
-        if (sharedPreferences.contains(PREF_FIRST_LAUNCH)) {
-            return sharedPreferences.getBoolean(PREF_FIRST_LAUNCH, true);
-        } else {
-            return true;
-        }
-    }
-
-    private void firstLaunch() {
-        sharedPreferences.edit()
-                .putBoolean(PREF_FIRST_LAUNCH, false)
-                .apply();
     }
 }

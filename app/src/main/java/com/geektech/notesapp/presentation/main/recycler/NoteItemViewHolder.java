@@ -12,7 +12,7 @@ public class NoteItemViewHolder extends RecyclerView.ViewHolder {
 
     private NoteClickListener mListener;
 
-    TextView textTitle, textDesc, textDate;
+    private TextView textTitle, textDesc, textDate;
 
 
     NoteItemViewHolder(
@@ -28,17 +28,16 @@ public class NoteItemViewHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        textTitle = itemView.findViewById(R.id.textTitle);
-        textDesc = itemView.findViewById(R.id.textDesc);
-        textDate = itemView.findViewById(R.id.currentDate);
+        textTitle = itemView.findViewById(R.id.item_note_title);
+        textDesc = itemView.findViewById(R.id.item_note_desc);
+        textDate = itemView.findViewById(R.id.item_note_created_at);
     }
 
     void onBind(NoteEntity noteEntity) {
 
         textTitle.setText(noteEntity.getTitle());
         textDesc.setText(noteEntity.getDescription());
-//        textDate.setText(noteEntity.getCreatedAt());
-        //TODO: Set all note data into views
+        textDate.setText(noteEntity.getCreatedAt().toString());//TODO data format
     }
 
     public interface NoteClickListener {

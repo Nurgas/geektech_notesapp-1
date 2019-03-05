@@ -5,6 +5,8 @@ import com.geektech.notesapp.model.NoteEntity;
 import java.util.Collection;
 
 public interface NotesStorage {
+
+
     void addNote(NoteEntity noteEntity);
 
     NoteEntity getNote(int id);

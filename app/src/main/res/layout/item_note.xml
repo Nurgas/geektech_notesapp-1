@@ -1,21 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="12dp"
+    android:background="?actionBarItemBackground">
 
     <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/item_note_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="Title"
+        android:textSize="20dp"
+        android:textColor="@color/black"/>
     <TextView
-        android:id="@+id/textDesc"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:id="@+id/item_note_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/item_note_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="Description"/>
     <TextView
-        android:id="@+id/currentDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/item_note_created_at"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="12 mar 2019"
+        app:layout_constraintTop_toBottomOf="@+id/item_note_desc"
+        app:layout_constraintRight_toRightOf="parent"/>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

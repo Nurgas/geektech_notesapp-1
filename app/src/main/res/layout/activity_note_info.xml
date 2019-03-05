@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,18 +7,65 @@
     tools:context=".presentation.noteinfo.NoteInfoActivity"
     android:orientation="vertical">
     <TextView
-        android:id="@+id/textTitleNote"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/note_info_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:lines="1"
+        android:maxLines="1"
+        android:layout_margin="30dp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
     <TextView
-        android:id="@+id/textDescNote"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/note_info_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/note_info_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="Description"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimaryDark"
+        android:padding="20dp"/>
+
     <TextView
-        android:id="@+id/currentDateNote"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/note_info_created_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="@id/note_info_desc"
+        app:layout_constraintTop_toBottomOf="@id/note_info_desc"
+        android:text="12 mar 2019"
+        android:layout_margin="16dp"/>
+
+    <Button
+        android:id="@+id/delete_note_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/edit_note_btn"
+        app:layout_constraintTop_toBottomOf="@+id/note_info_created_at"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:text="Delete"/>
+    <Button
+        android:id="@+id/edit_note_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toLeftOf="@id/delete_note_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/note_info_created_at"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:text="Edit"/>
 
 
-</LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
 
