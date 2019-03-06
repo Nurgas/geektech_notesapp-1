@@ -10,11 +10,13 @@ public class NotesRepository implements NotesStorage {
     private NotesStorage mLocal, mRemote;
 
     public NotesRepository(NotesStorage local) {
+
         mLocal = local;
     }
 
     @Override
     public void addNote(NoteEntity noteEntity) {
+
         mLocal.addNote(noteEntity);
     }
 

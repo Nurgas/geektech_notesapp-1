@@ -3,16 +3,17 @@ package com.geektech.notesapp.presentation.intro;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.StringRes;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.badoualy.stepperindicator.StepperIndicator;
@@ -24,12 +25,13 @@ public class IntroActivity extends AppCompatActivity
     implements View.OnClickListener {
 
     private static String PREF_FIRST_LAUNCH = "first_launch";
+    private static String KEY = "key";
 
     private IntroPagerAdapter mIntroAdapter;
     private ViewPager mViewPager;
     private StepperIndicator mStepper;
 
-    private TextView mNextBtn;
+    private TextView mNextBtn, mSkipBtn;
 
     public static void start(Activity activity) {
         activity.startActivity(new Intent(activity, IntroActivity.class));
@@ -39,10 +41,10 @@ public class IntroActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (isFirstLaunch()) {
+        if (App.sharedStorage.get(PREF_FIRST_LAUNCH, true)) {
             setContentView(R.layout.activity_intro);
 
-            firstLaunch();
+            App.sharedStorage.set(PREF_FIRST_LAUNCH, false);
 
             init();
         } else {
@@ -51,13 +53,14 @@ public class IntroActivity extends AppCompatActivity
         }
     }
 
-    //region Init
-
     private void init() {
         initViewPager();
 
         mNextBtn = findViewById(R.id.intro_next_btn);
         mNextBtn.setOnClickListener(this);
+        mSkipBtn = findViewById(R.id.intro_skip_btn);
+        mSkipBtn.setOnClickListener(this);
+
     }
 
     private void initViewPager() {
@@ -86,19 +89,6 @@ public class IntroActivity extends AppCompatActivity
         mStepper.setViewPager(mViewPager, mIntroAdapter.getCount());
     }
 
-    //endregion
-
-    //region Shared Preferences
-
-    private boolean isFirstLaunch() {
-        return App.sharedStorage.get(PREF_FIRST_LAUNCH, true);
-    }
-
-    private void firstLaunch() {
-        App.sharedStorage.set(PREF_FIRST_LAUNCH, false);
-    }
-
-    //endregion
 
     private void onPageChanged(int position) {
         String btnText = "Next";
@@ -123,6 +113,50 @@ public class IntroActivity extends AppCompatActivity
             case R.id.intro_next_btn:
                 onNextClick();
                 break;
+            case R.id.intro_skip_btn:
+                MainActivity.start(this);
+        }
+    }
+
+    public static class PlaceholderFragment extends Fragment {
+
+        public PlaceholderFragment() {
+        }
+
+        public static PlaceholderFragment newInstance(int sectionNumber) {
+            PlaceholderFragment fragment = new PlaceholderFragment();
+            Bundle args = new Bundle();
+            args.putInt(KEY, sectionNumber);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_intro, container, false);
+
+            TextView textView = rootView.findViewById(R.id.intro_text_view);
+            ImageView imageView = rootView.findViewById(R.id.intro_image_view);
+            int page = getArguments().getInt(KEY);
+            switch (page) {
+                case 0:
+                    textView.setText("Hello!");
+                    imageView.setImageResource(R.drawable.ic_attachment);
+
+                    break;
+                case 1:
+                    textView.setText("You can write and save \nall your notes here!");
+                    imageView.setImageResource(R.drawable.ic_attachment);
+
+                    break;
+                case 2:
+                    textView.setText("Welcome to our\nNotes App!");
+                    imageView.setImageResource(R.drawable.ic_attachment);
+
+                    break;
+            }
+            return rootView;
         }
     }
 
@@ -130,60 +164,19 @@ public class IntroActivity extends AppCompatActivity
         private final int PAGES_COUNT = 3;
 
         public IntroPagerAdapter(FragmentManager fm) {
+
             super(fm);
         }
 
-        //TODO: Return IntroFragment instance with target image url and title string id
         @Override
         public Fragment getItem(int position) {
-            Fragment fragment = null;
-
-            switch (position) {
-                case 0: fragment = new IntroFirstFragment();
-                    break;
-                case 1: fragment = new IntroSecondFragment();
-                    break;
-                case 2: fragment = new IntroThirdFragment();
-                    break;
-            }
-
-            return fragment;
+            return PlaceholderFragment.newInstance(position);
         }
 
         @Override
         public int getCount() {
+
             return PAGES_COUNT;
-        }
-    }
-
-    public static class IntroFragment extends Fragment {
-
-        public IntroFragment() {
-        }
-
-        public static IntroFragment newInstance(
-                String imageUrl,
-                @StringRes int titleRes
-        ) {
-            IntroFragment fragment = new IntroFragment();
-
-            //TODO: Put all values into arguments
-
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_intro_second, container, false);
-
-            initView(view);
-
-            return view;
-        }
-
-        //TODO: Initialize all data from arguments
-        private void initView(View rootView) {
         }
     }
 }

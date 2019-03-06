@@ -19,7 +19,7 @@ public class LaunchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(PREF_FIRST_LAUNCH, Context.MODE_PRIVATE);
 
         if (App.sharedStorage.get(PREF_FIRST_LAUNCH, true)) {
             IntroActivity.start(this);

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.geektech.notesapp.App;
 import com.geektech.notesapp.R;
 import com.geektech.notesapp.model.NoteEntity;
+import com.geektech.notesapp.presentation.main.recycler.NoteItemViewHolder;
 
 public class NoteInfoActivity extends AppCompatActivity {
 
@@ -52,8 +53,8 @@ public class NoteInfoActivity extends AppCompatActivity {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NoteEntity note = new NoteEntity();
-                App.notesStorage.deleteNote(note.getId());
+
+                App.notesStorage.deleteNote(getIntent().getIntExtra("id", -1));
                 finish();
 
             }
@@ -68,7 +69,6 @@ public class NoteInfoActivity extends AppCompatActivity {
         });
 
         loadNote();
-
     }
 
     private void loadNote() {
