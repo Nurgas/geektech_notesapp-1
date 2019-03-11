@@ -1,4 +1,4 @@
-package com.geektech.notesapp.presentation.noteinfo;
+package com.geektech.notesapp.presentation.noteedit;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.geektech.notesapp.App;
 import com.geektech.notesapp.R;
 import com.geektech.notesapp.model.NoteEntity;
+import com.geektech.notesapp.presentation.noteinfo.NoteInfoActivity;
 
 public class EditNoteActivity extends AppCompatActivity implements View.OnClickListener{
 

@@ -4,11 +4,11 @@ import com.geektech.notesapp.model.NoteEntity;
 
 import java.util.Collection;
 
-public class NotesRepository implements NotesStorage {
+public class NotesRepository implements INotesStorage {
 
-    private NotesStorage mLocal, mRemote;
+    private INotesStorage mLocal, mRemote;
 
-    public NotesRepository(NotesStorage local) {
+    public NotesRepository(INotesStorage local) {
 
         mLocal = local;
     }

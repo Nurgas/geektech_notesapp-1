@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".presentation.noteinfo.EditNoteActivity"/>
+        <activity android:name=".presentation.noteedit.EditNoteActivity"/>
         <activity android:name=".presentation.noteinfo.NoteInfoActivity" />
         <activity android:name=".presentation.addnote.AddNoteActivity" />
         <activity

@@ -13,7 +13,12 @@ import com.geektech.notesapp.R;
 import com.geektech.notesapp.model.NoteEntity;
 import com.geektech.notesapp.presentation.main.MainActivity;
 
-public class AddNoteActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddNoteActivity extends AppCompatActivity implements View.OnClickListener, AddNoteContract.View{
+
+    private AddNoteContract.Presenter mPresenter;
+
+    NoteEntity mNote;
+
     EditText mEditTextTitle, mEditTextDesc;
     TextView saveBtn, backBtn;
 
@@ -26,6 +31,7 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
+        mPresenter = new AddNotePresenter(this, App.notesStorage);
         init();
     }
 
@@ -44,33 +50,33 @@ public class AddNoteActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.saveBtn:
-                onClickSaveBtn();
+                mPresenter.onSaveClick(mNote);
+                finishView();
                 break;
             case R.id.backBtn:
-                onClickBackBtn();
+                mPresenter.onBackClick();
                 break;
         }
-
-    }
-
-    private void onClickBackBtn() {
-        MainActivity.start(this);
-    }
-
-    private void onClickSaveBtn() {
-        addNote();
-
     }
 
 
-    private void addNote() {
+    @Override
+    public void addNote(NoteEntity note) {
 
-        NoteEntity note = new NoteEntity();
+        mNote = note;
+        note = new NoteEntity();
         note.setTitle(mEditTextTitle.getText().toString());
         note.setDescription(mEditTextDesc.getText().toString());
-        App.notesStorage.addNote(note);
-        finish();
     }
 
+    @Override
+    public void attachPresenter(AddNoteContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
 
+    @Override
+    public void finishView() {
+        finish();
+
+    }
 }

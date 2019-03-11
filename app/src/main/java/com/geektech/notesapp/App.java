@@ -3,7 +3,7 @@ package com.geektech.notesapp;
 import android.app.Application;
 
 import com.geektech.notesapp.data.notes.NotesRepository;
-import com.geektech.notesapp.data.notes.NotesStorage;
+import com.geektech.notesapp.data.notes.INotesStorage;
 import com.geektech.notesapp.data.notes.local.NotesLocalStorage;
 import com.geektech.util.shared.SharedStorage;
 import com.geektech.util.shared.SharedStorageImpl;
@@ -15,7 +15,7 @@ public class App extends Application {
     private final String SHARED_FILE_NAME = "shared_prefs";
 
     public static SharedStorage sharedStorage;
-    public static NotesStorage notesStorage;
+    public static INotesStorage notesStorage;
 
     @Override
     public void onCreate() {
