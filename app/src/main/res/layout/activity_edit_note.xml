@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.addnote.AddNoteActivity"
+    android:background="@drawable/note_q"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/edit_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EDIT NOTE"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/margin_top_title"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:textSize="@dimen/main_title_text_size"/>
+
+    <EditText
+        android:id="@+id/edit_note_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/edit_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/edit_note_description"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:layout_marginRight="@dimen/margin_left_right"
+        android:inputType="textCapSentences"
+        android:hint="Title"/>
+    <EditText
+        android:id="@+id/edit_note_description"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="top"
+        app:layout_constraintTop_toBottomOf="@id/edit_note_title"
+        app:layout_constraintLeft_toLeftOf="@id/edit_note_title"
+        app:layout_constraintRight_toRightOf="@id/edit_note_title"
+        app:layout_constraintBottom_toTopOf="@id/edit_note_save_btn"
+        android:inputType="textCapSentences"
+        android:hint="Description"/>
+
+    <TextView
+        android:id="@+id/edit_note_save_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "SAVE"
+        app:layout_constraintTop_toBottomOf="@id/edit_note_description"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="@dimen/margin_left_right"
+        android:padding="@dimen/padding_btn"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:id="@+id/edit_note_back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_btn"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:text = "BACK"
+        app:layout_constraintTop_toBottomOf="@id/edit_note_description"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="10dp"/>
+
+
+</android.support.constraint.ConstraintLayout>
