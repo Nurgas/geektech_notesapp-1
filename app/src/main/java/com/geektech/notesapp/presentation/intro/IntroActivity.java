@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +32,10 @@ public class IntroActivity extends AppCompatActivity
     private ViewPager mViewPager;
     private StepperIndicator mStepper;
 
-    private TextView mNextBtn, mSkipBtn;
+    private TextView mNextBtn;
+    private TextView mSkipBtn;
 
-    public static void start(Activity activity) {
+    public static void start (Activity activity) {
         activity.startActivity(new Intent(activity, IntroActivity.class));
     }
 
@@ -45,12 +47,12 @@ public class IntroActivity extends AppCompatActivity
             setContentView(R.layout.activity_intro);
 
             App.sharedStorage.set(PREF_FIRST_LAUNCH, false);
-
             init();
         } else {
             MainActivity.start(this);
             finish();
         }
+
     }
 
     private void init() {
@@ -65,7 +67,6 @@ public class IntroActivity extends AppCompatActivity
 
     private void initViewPager() {
         mIntroAdapter = new IntroPagerAdapter(getSupportFragmentManager());
-
         mStepper = findViewById(R.id.intro_stepper);
         mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mIntroAdapter);
@@ -79,6 +80,7 @@ public class IntroActivity extends AppCompatActivity
             @Override
             public void onPageSelected(int i) {
                 onPageChanged(i);
+                onPageSkip(i);
             }
 
             @Override
@@ -91,11 +93,20 @@ public class IntroActivity extends AppCompatActivity
 
 
     private void onPageChanged(int position) {
-        String btnText = "Next";
+        String btnTextNext = "Next";
         if (position == 2) {
-            btnText = "Finish";
+            btnTextNext = "Finish";
         }
-        mNextBtn.setText(btnText);
+        mNextBtn.setText(btnTextNext);
+
+    }
+
+    private void onPageSkip(int position){
+        String btnTextFinish = "Skip";
+        if(position==2) {
+            btnTextFinish = "";
+        }
+        mSkipBtn.setText(btnTextFinish);
     }
 
     private void onNextClick() {
@@ -115,6 +126,7 @@ public class IntroActivity extends AppCompatActivity
                 break;
             case R.id.intro_skip_btn:
                 MainActivity.start(this);
+                finish();
         }
     }
 
@@ -141,17 +153,17 @@ public class IntroActivity extends AppCompatActivity
             int page = getArguments().getInt(KEY);
             switch (page) {
                 case 0:
-                    textView.setText("Hello!");
+                    textView.setText(getString(R.string.first_fragment));
                     imageView.setImageResource(R.drawable.ic_attachment);
 
                     break;
                 case 1:
-                    textView.setText("You can write and save \nall your notes here!");
+                    textView.setText(getString(R.string.second_fragment));
                     imageView.setImageResource(R.drawable.ic_attachment);
 
                     break;
                 case 2:
-                    textView.setText("Welcome to our\nNotes App!");
+                    textView.setText(getString(R.string.third_fragment));
                     imageView.setImageResource(R.drawable.ic_attachment);
 
                     break;

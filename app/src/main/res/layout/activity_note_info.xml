@@ -5,65 +5,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.noteinfo.NoteInfoActivity"
+    android:background="@drawable/note_q"
     android:orientation="vertical">
+
     <TextView
-        android:id="@+id/note_info_title"
-        android:layout_width="0dp"
+        android:id="@+id/noteTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Title"
-        android:textSize="24sp"
-        android:gravity="center"
-        android:lines="1"
-        android:maxLines="1"
-        android:layout_margin="30dp"
-        android:textColor="@color/black"
+        android:text="NOTE INFO"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-    <TextView
-        android:id="@+id/note_info_desc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/note_info_title"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:text="Description"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:background="@color/colorPrimaryDark"
-        android:padding="20dp"/>
+        app:layout_constraintBottom_toTopOf="@+id/note_info_title"
+        android:layout_marginTop="@dimen/margin_top_title"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:textSize="@dimen/main_title_text_size"/>
 
     <TextView
         android:id="@+id/note_info_created_at"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="20 march 2019"
+        android:textSize="@dimen/data_text_size"
+        android:layout_margin="@dimen/margin_size" />
+
+
+    <TextView
+        android:id="@+id/note_info_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintRight_toRightOf="@id/note_info_desc"
-        app:layout_constraintTop_toBottomOf="@id/note_info_desc"
-        android:text="12 mar 2019"
-        android:layout_margin="16dp"/>
+        android:text="Title"
+        android:layout_marginTop="@dimen/margin_top_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:textSize="@dimen/note_title_text_size"
+        app:layout_constraintTop_toBottomOf="@id/noteTitle" />
 
-    <Button
+    <TextView
+        android:id="@+id/note_info_desc"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/note_info_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/edit_note_btn"
+        android:text="Description"
+        android:layout_marginLeft="@dimen/margin_left_right"
+        android:textSize="@dimen/note_desc_text_size"
+        android:layout_marginRight="@dimen/margin_left_right"/>
+
+    <TextView
         android:id="@+id/delete_note_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/edit_note_btn"
-        app:layout_constraintTop_toBottomOf="@+id/note_info_created_at"
-        android:background="@color/colorPrimaryDark"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/white"
-        android:text="Delete"/>
-    <Button
+        android:padding="@dimen/padding_btn"
+        android:text="DELETE"/>
+    <TextView
         android:id="@+id/edit_note_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintRight_toLeftOf="@id/delete_note_btn"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/note_info_created_at"
-        android:background="@color/colorPrimaryDark"
+        android:padding="@dimen/padding_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/delete_note_btn"
+        app:layout_constraintLeft_toRightOf="@id/back_note_btn"
         android:layout_marginTop="10dp"
-        android:textColor="@color/white"
-        android:text="Edit"/>
+        android:text="EDIT"/>
+    <TextView
+        android:id="@+id/back_note_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/edit_note_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="10dp"
+        android:text="BACK"/>
+
 
 
 

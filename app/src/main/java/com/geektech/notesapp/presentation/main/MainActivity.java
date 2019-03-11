@@ -13,7 +13,6 @@ import com.geektech.notesapp.App;
 import com.geektech.notesapp.R;
 import com.geektech.notesapp.model.NoteEntity;
 import com.geektech.notesapp.presentation.addnote.AddNoteActivity;
-import com.geektech.notesapp.presentation.intro.IntroActivity;
 import com.geektech.notesapp.presentation.main.recycler.NoteItemViewHolder;
 import com.geektech.notesapp.presentation.main.recycler.NotesAdapter;
 import com.geektech.notesapp.presentation.noteinfo.NoteInfoActivity;
@@ -27,7 +26,6 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView mRecycler;
     private FloatingActionButton mActionButton;
 
-
     public static void start(Activity activity) {
         activity.startActivity(new Intent(activity, MainActivity.class));
     }
@@ -36,7 +34,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
         init();
     }
 
@@ -59,6 +56,8 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 
                 openAddNoteScreen();
+
+                overridePendingTransition(R.anim.left_in, R.anim.right_in);
             }
         });
     }
@@ -73,7 +72,6 @@ public class MainActivity extends AppCompatActivity
 
     private void openAddNoteScreen() {
         AddNoteActivity.start(this);
-
     }
 
     private void loadNotes() {

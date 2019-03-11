@@ -11,12 +11,14 @@ import android.widget.TextView;
 import com.geektech.notesapp.App;
 import com.geektech.notesapp.R;
 import com.geektech.notesapp.model.NoteEntity;
-import com.geektech.notesapp.presentation.main.recycler.NoteItemViewHolder;
+import com.geektech.notesapp.presentation.main.MainActivity;
+import com.geektech.util.DateUtil;
 
-public class NoteInfoActivity extends AppCompatActivity {
+
+public class NoteInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView textTitle, textDesc, textDate;
-    private Button editBtn, deleteBtn;
+    private TextView editBtn, deleteBtn, backDtn;
 
     private static final String EXTRA_ID = "id";
 
@@ -27,10 +29,8 @@ public class NoteInfoActivity extends AppCompatActivity {
     public static Intent intent(Context context, int id) {
         Intent intent = new Intent(context, NoteInfoActivity.class);
         intent.putExtra(EXTRA_ID, id);
-
         return intent;
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,46 +41,67 @@ public class NoteInfoActivity extends AppCompatActivity {
         init();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadNote();
+    }
 
     private void init() {
 
         textTitle = findViewById(R.id.note_info_title);
         textDesc = findViewById(R.id.note_info_desc);
         textDate = findViewById(R.id.note_info_created_at);
+
+        backDtn = findViewById(R.id.back_note_btn);
+        backDtn.setOnClickListener(this);
+
         editBtn = findViewById(R.id.edit_note_btn);
+        editBtn.setOnClickListener(this);
+
         deleteBtn = findViewById(R.id.delete_note_btn);
-
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                App.notesStorage.deleteNote(getIntent().getIntExtra("id", -1));
-                finish();
-
-            }
-        });
-
-
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        loadNote();
+        deleteBtn.setOnClickListener(this);
     }
 
     private void loadNote() {
-        NoteEntity note = App.notesStorage.getNote(getIntent().getIntExtra("id", -1));
+        NoteEntity note = App.notesStorage.getNote(getIntent().getIntExtra(EXTRA_ID, -1));
 
-        if(note !=null) {
+        if (note != null) {
             textTitle.setText(note.getTitle());
             textDesc.setText(note.getDescription());
-            textDate.setText(note.getCreatedAt().toString()); //TODO Data format
-
+            textDate.setText(DateUtil.formatDefoultDate(note.getCreatedAt()));
         }
+    }
 
+    private void onEditClick() {
+        EditNoteActivity.start(this, getIntent().getIntExtra(EXTRA_ID, -1));
+    }
+
+    private void onDeleteClick() {
+        App.notesStorage.deleteNote(getIntent().getIntExtra(EXTRA_ID, -1));
+        finish();
 
     }
+
+    private void onBackClick() {
+        MainActivity.start(this);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.delete_note_btn:
+                onDeleteClick();
+
+                break;
+            case R.id.edit_note_btn:
+                onEditClick();
+                break;
+            case R.id.back_note_btn:
+                onBackClick();
+        }
+    }
+
+
 }

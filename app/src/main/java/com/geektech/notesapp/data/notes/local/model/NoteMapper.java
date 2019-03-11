@@ -12,8 +12,6 @@ public class NoteMapper {
         rNote.setId(noteEntity.getId());
 
         return rNote;
-
-
     }
     public static NoteEntity toNote(RNote rNote) {
         NoteEntity noteEntity  = new NoteEntity();

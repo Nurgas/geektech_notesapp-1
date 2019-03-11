@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">NotesApp</string>
+    <string name="app_name">My Notes</string>
     <string name="title_activity_intro">IntroActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="second_fragment">You can write and save  all your notes here!</string>
+    <string name="first_fragment">Hello!</string>
+    <string name="third_fragment">Welcome to our Notes App!</string>
 </resources>

@@ -8,7 +8,6 @@ public class NoteEntity {
     private String description;
     private Date createdAt;
 
-    //region Constructors
 
     public NoteEntity(int id, String title, String description, Date createdAt) {
         this.id = id;
@@ -24,9 +23,6 @@ public class NoteEntity {
         this.createdAt = new Date();
     }
 
-    //endregion
-
-    //region Getters/Setters
 
     public int getId() {
         return id;
@@ -60,5 +56,4 @@ public class NoteEntity {
         this.createdAt = createdAt;
     }
 
-    //endregion
 }

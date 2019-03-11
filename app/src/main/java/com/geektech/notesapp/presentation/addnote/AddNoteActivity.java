@@ -5,20 +5,20 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.geektech.notesapp.App;
 import com.geektech.notesapp.R;
 import com.geektech.notesapp.model.NoteEntity;
+import com.geektech.notesapp.presentation.main.MainActivity;
 
-public class AddNoteActivity extends AppCompatActivity {
-    NoteEntity mNoteEntity;
+public class AddNoteActivity extends AppCompatActivity implements View.OnClickListener {
     EditText mEditTextTitle, mEditTextDesc;
-    Button submitBtn;
+    TextView saveBtn, backBtn;
 
-    public static void start(Context contex) {
-        contex.startActivity(new Intent(contex, AddNoteActivity.class));
+    public static void start(Context context) {
+        context.startActivity(new Intent(context, AddNoteActivity.class));
 
     }
 
@@ -33,22 +33,44 @@ public class AddNoteActivity extends AppCompatActivity {
 
         mEditTextTitle = findViewById(R.id.title);
         mEditTextDesc = findViewById(R.id.description);
-        submitBtn = findViewById(R.id.saveBtn);
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addNote();
-            }
-        });
+        backBtn = findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(this);
+        saveBtn = findViewById(R.id.saveBtn);
+        saveBtn.setOnClickListener(this);
+
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.saveBtn:
+                onClickSaveBtn();
+                break;
+            case R.id.backBtn:
+                onClickBackBtn();
+                break;
+        }
+
+    }
+
+    private void onClickBackBtn() {
+        MainActivity.start(this);
+    }
+
+    private void onClickSaveBtn() {
+        addNote();
+
+    }
+
 
     private void addNote() {
 
-       NoteEntity note = new NoteEntity();
-       note.setTitle(mEditTextTitle.getText().toString());
-       note.setDescription(mEditTextDesc.getText().toString());
-
+        NoteEntity note = new NoteEntity();
+        note.setTitle(mEditTextTitle.getText().toString());
+        note.setDescription(mEditTextDesc.getText().toString());
         App.notesStorage.addNote(note);
         finish();
-            }
+    }
+
+
 }

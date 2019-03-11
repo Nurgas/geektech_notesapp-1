@@ -3,7 +3,6 @@ package com.geektech.notesapp.data.notes;
 import com.geektech.notesapp.model.NoteEntity;
 
 import java.util.Collection;
-import java.util.HashMap;
 
 public class NotesRepository implements NotesStorage {
 

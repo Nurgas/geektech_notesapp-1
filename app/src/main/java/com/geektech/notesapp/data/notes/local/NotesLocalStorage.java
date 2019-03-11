@@ -1,7 +1,6 @@
 package com.geektech.notesapp.data.notes.local;
 
-import com.geektech.notesapp.App;
-import com.geektech.notesapp.R;
+
 import com.geektech.notesapp.data.notes.NotesStorage;
 import com.geektech.notesapp.data.notes.local.model.NoteMapper;
 import com.geektech.notesapp.data.notes.local.model.RNote;
@@ -79,7 +78,6 @@ public class NotesLocalStorage implements NotesStorage {
         });
     }
 
-
     @Override
     public NoteEntity getNote(int id) {
         NoteEntity noteEntity =null;
@@ -132,24 +130,15 @@ public class NotesLocalStorage implements NotesStorage {
     @Override
     public void deleteNote(final int id) {
 
-        Realm realm = null;
-
-        realm.executeTransaction(new Realm.Transaction() {
+        execute(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-
                 RNote rNote = realm.where(RNote.class).equalTo("id", id).findFirst();
-                    if (rNote != null) {
-                        rNote.deleteFromRealm();
-
-                    }
-
+                if (rNote != null) {
+                    rNote.deleteFromRealm();
+                }
             }
         });
-
-
-
-
 
     }
 }
